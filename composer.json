@@ -23,6 +23,7 @@
     },
     "require": {
         "hanafalah/laravel-support": "dev-main",
-        "hanafalah/microtenant": "dev-main"
+        "hanafalah/microtenant": "dev-main",
+        "hanafalah/wellmed-feature": "dev-main"
     }
 }
