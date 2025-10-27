@@ -456,7 +456,6 @@ class ScreeningSeeder extends Seeder
             if (!isset($screening)) {
                 foreach ($data['screening_has_forms'] as &$screening_has_form) {
                     $form_model = app(config('database.models.Form'))->where('label',$screening_has_form['form_label'])->first();
-                    if (!isset($form_model)) dd($screening_has_form);
 
                     $screening_has_form['form_id'] = $form_model->getKey();
                     unset($screening_has_form['form_label']);
