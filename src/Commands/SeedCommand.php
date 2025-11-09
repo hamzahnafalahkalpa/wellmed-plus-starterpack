@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Commands;
+namespace Hanafalah\WellmedPlusStarterpack\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 
@@ -10,7 +10,7 @@ class SeedCommand extends EnvironmentCommand{
      *
      * @var string
      */
-    protected $signature = 'klinik-starterpack:seed {class? : Class name of the seeder}';
+    protected $signature = 'wellmed-plus-starterpack:seed {class? : Class name of the seeder}';
 
 
     /**
@@ -27,7 +27,7 @@ class SeedCommand extends EnvironmentCommand{
     {
         $class = $this->argument('class') ?? "DatabaseSeeder";
         Artisan::call('db:seed',[
-            '--class' => "Hanafalah\KlinikStarterpack\\Database\Seeders\\$class"
+            '--class' => "Hanafalah\WellmedPlusStarterpack\\Database\Seeders\\$class"
         ]);   
     }
 }

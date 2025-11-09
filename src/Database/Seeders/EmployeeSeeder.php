@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Database\Seeders;
+namespace Hanafalah\WellmedPlusStarterpack\Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -19,8 +19,8 @@ class EmployeeSeeder extends Seeder
     {
         $user = app(config('database.models.User'))->where('username','admin')->first();
         if (!isset($user)){
-            $role_ids   = app(config('database.models.Role'))->get()->pluck('id')->toArray();
-            $user       = app(config('database.models.User'))->where('username','admin')->first();
+            $role_ids   = app(config('database.models.Role'))->where('name','Admin')->get()->pluck('id')->toArray();
+            $user       = app(config('database.models.User'))->where('username','admin_plus')->first();
             $profession = app(config('database.models.Profession'))->whereLike('name','Dokter Umum')->firstOrFail();
 
             request()->merge([
@@ -73,10 +73,10 @@ class EmployeeSeeder extends Seeder
                     "workspace_id" => tenancy()->tenant->id,
                     "user" => [ // Informasi akun user (boleh null untuk tidak update akun user)
                         "id" => null,
-                        "username" => "admin",
+                        "username" => "admin_plus",
                         "password" => "password",
                         "password_confirmation" => "password", // Konfirmasi password
-                        "email" => "hamzah@dev.com",
+                        "email" => "hamzah_plus@dev.com",
                         "email_verified_at" => now(),
                     ]
                 ],

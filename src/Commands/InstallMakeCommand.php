@@ -1,8 +1,9 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Commands;
+namespace Hanafalah\WellmedPlusStarterpack\Commands;
 
-use Hanafalah\KlinikStarterpack\Concerns\HasComposer;
+use Hanafalah\MicroTenant\Facades\MicroTenant;
+use Hanafalah\WellmedPlusStarterpack\Concerns\HasComposer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,7 @@ class InstallMakeCommand extends EnvironmentCommand
      *
      * @var string
      */
-    protected $signature = 'klinik-starterpack:install
+    protected $signature = 'wellmed-plus-starterpack:install
                             {--drop : Drop database before installing}';
 
 
@@ -49,17 +50,13 @@ class InstallMakeCommand extends EnvironmentCommand
             }
         }
         
-        $this->call('micro:install',[
-            "--skip-generate" => true
-        ]);
-
-        $provider = 'Hanafalah\KlinikStarterpack\KlinikStarterpackServiceProvider';
+        $provider = 'Hanafalah\WellmedPlusStarterpack\WellmedPlusStarterpackServiceProvider';
         $this->comment('Installing Module...');
         $this->callSilent('vendor:publish', [
             '--provider' => $provider,
             '--tag'      => 'config'
         ]);
-        $this->info('✔️  Created config/klinik-starterpack.php');
+        $this->info('✔️  Created config/wellmed-plus-starterpack.php');
 
         $this->callSilent('vendor:publish', [
             '--provider' => $provider,
@@ -67,25 +64,22 @@ class InstallMakeCommand extends EnvironmentCommand
         ]);
         $this->info('✔️  Created migrations');
 
-        $this->call('klinik-starterpack:install-submodule');
-        $this->info('✔️  Submodule installed');
-
-        $this->call('down');
+        // $this->call('down');
         $this->call('migrate');
         $this->call('db:seed');
-        $this->call('up');
-        $this->info('Klinik Starterpack Seeding');
-        $this->call('klinik-starterpack:seed');
-        $this->info('✔️  Klinik Starterpack Seeded');
+        // $this->call('up');
+        $this->info('Wellmed Plus Starterpack Seeding');
+        $this->call('wellmed-plus-starterpack:seed');
+        $this->info('✔️  Wellmed Plus Starterpack Seeded');
 
         $this->call('impersonate:cache');
-        $this->info('Klinik Migrating');
-        $this->call('klinik:migrate');
-        $this->info('✔️  Klinik Migrated');
+        $this->info('Wellmed Plus Migrating');
+        $this->call('wellmed-plus:migrate');
+        $this->info('✔️  Wellmed Plus Migrated');
         
-        // $this->call('klinik:impersonate-migrate');
+        // $this->call('wellmed-plus:impersonate-migrate');
 
-        $this->comment('hanafalah\\klinik-starterpack installed successfully.');
+        $this->comment('hanafalah\\wellmed-plus-starterpack installed successfully.');
         config(['micro-tenant.dev_mode' => $dev_mode]);
     }
 }

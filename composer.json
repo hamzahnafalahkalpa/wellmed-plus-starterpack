@@ -1,8 +1,8 @@
 {
-    "name": "hanafalah/klinik-starterpack",
+    "name": "hanafalah/wellmed-plus-starterpack",
     "autoload": {
         "psr-4": {
-            "Hanafalah\\KlinikStarterpack\\": "src/"
+            "Hanafalah\\WellmedPlusStarterpack\\": "src/"
         },
         "files":[
             "src/helper.php"
@@ -17,13 +17,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hanafalah\\KlinikStarterpack\\KlinikStarterpackServiceProvider"
+                "Hanafalah\\WellmedPlusStarterpack\\WellmedPlusStarterpackServiceProvider"
             ]
         }
     },
     "require": {
+        "hanafalah/wellmed-lite-starterpack": "dev-main",
         "hanafalah/laravel-support": "dev-main",
-        "hanafalah/microtenant": "dev-main",
         "hanafalah/wellmed-feature": "dev-main"
     }
 }

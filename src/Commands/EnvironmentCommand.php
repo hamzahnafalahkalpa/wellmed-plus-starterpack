@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Commands;
+namespace Hanafalah\WellmedPlusStarterpack\Commands;
 
 use Hanafalah\LaravelSupport\Concerns\ServiceProvider\HasMigrationConfiguration;
 

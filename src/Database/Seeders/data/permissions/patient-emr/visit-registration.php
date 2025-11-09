@@ -3,7 +3,7 @@
 use Hanafalah\LaravelPermission\Enums\Permission\Type;
 
 return [
-    'name'            => 'Poliklinik', 
+    'name'            => 'Kunjungan Pasien', 
     'alias'           => 'visit-registration',
     'icon'            => 'healthicons:outpatient-department',
     'show_in_acl'     => true,
@@ -11,20 +11,20 @@ return [
     'guard_name'      => 'api',
     'childs'          => [        
         [
-            'name'        => 'Kelola Poliklinik', 
+            'name'        => 'Kelola Kunjungan Pasien Poli', 
             'alias'       => 'store',
             'type'        => Type::PERMISSION->value,
             'guard_name'  => 'api',
             'show_in_acl' => true
         ],
         [
-            'name'        => 'Ubah Poliklinik', 
+            'name'        => 'Ubah Kunjungan Pasien Poli', 
             'alias'       => 'update',
             'type'        => Type::PERMISSION->value,
             'guard_name'  => 'api'
         ],
         [
-            'name'         => 'Detail Poliklinik', 
+            'name'         => 'Detail Kunjungan Pasien Poli', 
             'alias'        => 'show',
             'type'         => Type::PERMISSION->value,
             'guard_name'   => 'api',

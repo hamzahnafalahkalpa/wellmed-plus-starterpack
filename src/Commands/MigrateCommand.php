@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Commands;
+namespace Hanafalah\WellmedPlusStarterpack\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
@@ -13,14 +13,14 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'klinik-starterpack:migrate {--seed}';
+    protected $signature = 'wellmed-plus-starterpack:migrate {--seed}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run migrations for the KlinikStarterpack project';
+    protected $description = 'Run migrations for the WellmedPlusStarterpack project';
 
     /**
      * Execute the console command.
@@ -65,11 +65,11 @@ class MigrateCommand extends Command
             }
         }
 
-        $this->info("Migrations for KlinikStarterpack project have been successfully executed.");
+        $this->info("Migrations for WellmedPlusStarterpack project have been successfully executed.");
 
         if ($this->option('seed')){
             $this->info("Run seeding");
-            Artisan::call('klinikstarterpack:seed');
+            Artisan::call('wellmed-plus-starterpack:seed');
             $this->info("Seeded");
         }
         return Command::SUCCESS;

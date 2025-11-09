@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Enums\ModuleService\McuManagement;
+namespace Hanafalah\WellmedPlusStarterpack\Enums\ModuleService\McuManagement;
 
 enum EnumMcuManagement: string {
     case MEDICAL_CHECK_UP  = "Medical Check Up";

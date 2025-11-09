@@ -3,7 +3,7 @@
 use Hanafalah\LaravelPermission\Enums\Permission\Type;
 
 return [
-    'name'        => 'Point of Sale',
+    'name'        => 'Kasir',
     'alias'       => 'point-of-sale',
     'icon'        => 'mdi:network-point-of-sale',
     'type'        => Type::MENU->value,
@@ -11,20 +11,20 @@ return [
     'guard_name'  => 'api',
     'childs'      => [
         [
-            'name'        => 'Tambah Data POS',
+            'name'        => 'Tambah Data Kasir',
             'alias'       => 'store',
             'type'        => Type::PERMISSION->value,
             'guard_name'  => 'api',
             'show_in_acl' => true
         ],
         [
-            'name'        => 'Ubah Data POS',
+            'name'        => 'Ubah Data Kasir',
             'alias'       => 'update',
             'type'        => Type::PERMISSION->value,
             'guard_name'  => 'api'
         ],
         [
-            'name'        => 'Detail Data POS',
+            'name'        => 'Detail Data Kasir',
             'alias'       => 'show',
             'type'        => Type::PERMISSION->value,
             'guard_name'  => 'api',
@@ -35,7 +35,7 @@ return [
             ]
         ],
         [
-            'name'       => 'Hapus Data POS',
+            'name'       => 'Hapus Data Kasir',
             'alias'      => 'destroy',
             'type'       => Type::PERMISSION->value,
             'guard_name' => 'api'

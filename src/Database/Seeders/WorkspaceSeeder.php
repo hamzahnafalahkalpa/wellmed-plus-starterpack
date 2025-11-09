@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Database\Seeders;
+namespace Hanafalah\WellmedPlusStarterpack\Database\Seeders;
 
 use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\MicroTenant\Contracts\Data\TenantData;
@@ -12,10 +12,11 @@ use Hanafalah\ModuleWorkspace\Data\{
     WorkspaceSettingData
 };
 use Hanafalah\ModuleWorkspace\Enums\Workspace\Status;
-use Hanafalah\KlinikStarterpack\Concerns\HasComposer;
+use Hanafalah\WellmedPlusStarterpack\Concerns\HasComposer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
+use Projects\WellmedPlus\Data\ModulePatient\IntegrationData;
 
 class WorkspaceSeeder extends Seeder{
     use HasRequestData, HasComposer;
@@ -25,45 +26,70 @@ class WorkspaceSeeder extends Seeder{
      */
     public function run(): void
     {
-        $workspace = app(config('database.models.Workspace'))->uuid('9e7ff0f6-7679-46c8-ac3e-71da818160dd')->first();        
+        $workspace = app(config('database.models.Workspace'))->uuid('9e7ff0f6-7679-46c8-ac3e-71da818160ff')->first();        
         $generator_config = config('laravel-package-generator');
         $project_namespace = 'Projects';
-        $group_namespace   = 'Klinik';
+        $group_namespace   = 'WellmedPlus';
         if (!isset($workspace)){
-            $tenant_namespace  = 'GroupInitialKlinik';
+            $tenant_namespace  = 'WellmedPlusGroup';
+
+            $db_tenant_name = config('micro-tenant.database.database_tenant_name');
+            $default = config('tenancy.database.central_connection');
+            config([
+                'tenancy.database.prefix' => 'plus_',
+                'tenancy.database.suffix' => '',
+                'tenancy.database.central_connection' => 'central_app'
+            ]);
 
             $tenant_schema  = app(config('app.contracts.Tenant'));
             $tenant_model   = app(config('database.models.Tenant'));
             $project_tenant = $tenant_schema->prepareStoreTenant($this->requestDTO(TenantData::class,[
                 'parent_id'      => null,
-                'name'           => 'Klinik',
+                'name'           => 'Wellmed Plus',
                 'flag'           => $tenant_model::FLAG_APP_TENANT,
                 'reference_id'   => null,
                 'reference_type' => null,
-                'provider'       => $project_namespace.'\\Klinik\\Providers\\KlinikServiceProvider',
+                'provider'       => $project_namespace.'\\WellmedPlus\\Providers\\WellmedPlusServiceProvider',
                 'path'           => $generator_config['patterns']['project']['published_at'],
                 'packages'       => [],
+                'has_group'      => true,
+                'has_tenant'     => true,
+                'product_type'   => 'WELLMED_PLUS',
                 'config'         => $generator_config['patterns']['project']
             ]));
 
+            $database_tenant_name = config('micro-tenant.database.central_tenant');
+            config([
+                'tenancy.database.prefix' => $database_tenant_name['prefix'],
+                'tenancy.database.suffix' => $database_tenant_name['suffix'],
+                'tenancy.database.central_connection' => 'central_tenant'
+            ]);
+
             $group_tenant = $tenant_schema->prepareStoreTenant($this->requestDTO(TenantData::class,[
                 'parent_id'      => $project_tenant->getKey(),
-                'name'           => 'Group Initial Klinik',
+                'name'           => 'Wellmed Plus',
                 'flag'           => $tenant_model::FLAG_CENTRAL_TENANT,
                 'reference_id'   => null,
                 'reference_type' => null,
-                'provider'       => $group_namespace.'\\GroupInitialKlinik\\Providers\\GroupInitialKlinikServiceProvider',
+                'provider'       => $group_namespace.'\\GroupInitialWellmedPlus\\Providers\\GroupInitialWellmedPlusServiceProvider',
                 'app'            => ['provider' => $project_tenant->provider],
                 'path'           => $generator_config['patterns']['group']['published_at'],
+                'has_tenant'     => true,
+                'product_type'   => 'WELLMED_PLUS',
                 'packages'       => [],
                 'config'         => $generator_config['patterns']['group']
             ]));
-            $group_tenant->save();
+            config([
+                'tenancy.database.prefix' => $db_tenant_name['prefix'],
+                'tenancy.database.suffix' => $db_tenant_name['suffix'],
+                'tenancy.database.central_connection' => $default
+            ]);
 
             $workspace = app(config('app.contracts.Workspace'))->prepareStoreWorkspace(WorkspaceData::from([
-                'uuid'    => '9e7ff0f6-7679-46c8-ac3e-71da818160dd',
-                'name'    => 'Klinik',
+                'uuid'    => '9e7ff0f6-7679-46c8-ac3e-71da818160ff',
+                'name'    => 'Wellmed Plus',
                 'status'  => Status::ACTIVE->value,
+                'product_type'   => 'WELLMED_PLUS',
                 'props'   => WorkspacePropsData::from([
                     'setting' => WorkspaceSettingData::from([
                         'address' => AddressData::from([
@@ -80,36 +106,72 @@ class WorkspaceSeeder extends Seeder{
                             'id' => null,
                             'name' => null
                         ]
+                    ]),
+                    'integration' => IntegrationData::from([
+                        "satu_sehat" => [
+                            "progress" => 0,
+                            "syncs" => [
+                                [
+                                    'flag' => 'encounter',
+                                    'label' => 'Kunjungan',
+                                ],
+                                [
+                                    'flag' => 'condition',
+                                    'label' => 'Diagnosa',
+                                ], 
+                                [
+                                    'flag' => 'dispense',
+                                    'label' => 'Resep',
+                                ]
+                            ]
+                        ],
+                        "bpjs" => [
+                            "progress" => 0,
+                            "syncs" => [
+                                [
+                                    'flag' => 'encounter',
+                                    'label' => 'Kunjungan',
+                                ],
+                                [
+                                    'flag' => 'condition',
+                                    'label' => 'Diagnosa',
+                                ], 
+                                [
+                                    'flag' => 'dispense',
+                                    'label' => 'Resep',
+                                ]
+                            ]
+                        ]
                     ])
                 ])
             ]));
-            
 
             $tenant = $tenant_schema->prepareStoreTenant($this->requestDTO(TenantData::class,[
                 'parent_id'      => $group_tenant->getKey(),
-                'name'           => 'Tenant Klinik',
+                'name'           => 'Tenant Wellmed Plus',
                 'flag'           => $tenant_model::FLAG_TENANT,
                 'reference_id'   => $workspace->getKey(),
                 'reference_type' => $workspace->getMorphClass(),
                 'domain'         => [
-                    'name' => 'localhost:8004'
+                    'domain' => 'localhost:9002'
                 ],
-                'provider' => $tenant_namespace.'\\TenantKlinik\\Providers\\TenantKlinikServiceProvider',
+                'provider' => $tenant_namespace.'\\TenantWellmedPlus\\Providers\\TenantWellmedPlusServiceProvider',
                 'path'     => $generator_config['patterns']['tenant']['published_at'],
                 'app'      => ['provider' => $project_tenant->provider],
                 'group'    => ['provider' => $group_tenant->provider],
                 'packages' => [],
                 'config'   => $generator_config['patterns']['tenant']
             ]));
+            $tenant->db_name = $tenant->tenancy_db_name;
+            $tenant->save();
         }else{
             $tenant         = $workspace->tenant;
             $group_tenant   = $tenant->parent;
             $project_tenant = $group_tenant->parent;
         }
-
         $tenant_path = $generator_config['patterns']['tenant']['published_at'];
 
-        $providers = config('klinik-starterpack.packages');
+        $providers = config('wellmed-plus-starterpack.packages');
         $providers = array_keys($providers);
         $package_providers = [];
         $requires = [
@@ -139,57 +201,10 @@ class WorkspaceSeeder extends Seeder{
                 $requires['require'][Str::kebab($original)] = 'dev-main as 1.0'; 
             }
         }
+        
         $project_tenant->setAttribute('packages',$package_providers);
         $project_tenant->save();
 
-        $composer = $tenant_path.'/'.Str::kebab($tenant->name).'/composer.json';
-        if (!file_exists($composer)){
-            Artisan::call('micro:add-package',[
-                'namespace' => $group_namespace.'\\'.Str::studly($tenant->name),
-                '--package-author' => 'Hamzah Nur Alfalah',
-                '--package-email' => 'hamzahnafalah@gmail.com',
-                '--pattern' => 'tenant',
-                '--main-id' => $tenant->getKey()
-            ]);
-        }
-
-        if (config('app.env') == 'local'){
-            file_put_contents(__DIR__.'/../../tenant-repositories.json', json_encode($repositories, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-            $this->updateComposer($composer, __DIR__.'/../../tenant-repositories.json','repositories');
-        }
-
-        $composer = $group_tenant->path.'/'.Str::kebab($group_tenant->name).'/composer.json';
-        if (!file_exists($composer)){
-            Artisan::call('micro:add-package',[
-                'namespace' => $group_namespace.'\\'.Str::studly($group_tenant->name),
-                '--package-author' => 'Hamzah Nur Alfalah',
-                '--package-email' => 'hamzahnafalah@gmail.com',
-                '--pattern' => 'group',
-                '--main-id' => $group_tenant->getKey()
-            ]);
-        }
-
-        $composer = $project_tenant->path.'/'.Str::kebab($project_tenant->name).'/composer.json';
-        if (!file_exists($composer)){
-            Artisan::call('micro:add-package',[
-                'namespace' => $project_namespace.'\\'.$group_namespace,
-                '--package-author' => 'Hamzah Nur Alfalah',
-                '--package-email' => 'hamzahnafalah@gmail.com',
-                '--pattern' => 'project',
-                '--main-id' => $project_tenant->getKey()
-            ]);
-        }
-        
-        if (config('app.env') == 'local'){
-            file_put_contents(__DIR__.'/../../project-requirements.json', json_encode($requires, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-            $this->updateComposer($composer, __DIR__.'/../../project-requirements.json','require');
-        }
-
-        shell_exec("cd $tenant_path/".Str::kebab($tenant->name)." && rm -rf composer.lock && composer install");
-
-        MicroTenant::tenantImpersonate($tenant);
-        tenancy()->initialize($tenant->getKey());
-        
         Artisan::call('impersonate:cache',[
             '--app_id'    => $project_tenant->getKey(),
             '--group_id'  => $group_tenant->getKey(),
@@ -202,5 +217,7 @@ class WorkspaceSeeder extends Seeder{
             '--group_id'  => $group_tenant->getKey(),
             '--tenant_id' => $tenant->getKey()
         ]);
+
+        MicroTenant::tenantImpersonate($tenant);
     }
 }

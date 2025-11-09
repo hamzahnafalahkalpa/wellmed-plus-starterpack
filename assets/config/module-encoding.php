@@ -12,7 +12,6 @@ return [
         'TREATMENT'              => ['label'=>'TREATMENT','name'=>'Kode Master Layanan'],
         'MEDICAL_TREATMENT'      => ['label'=>'MEDICAL_TREATMENT','name'=>'Kode Master Tindakan Poliklinik'],
         'PROCUREMENT'            => ['label'=>'PROCUREMENT','name'=>'Kode Pengadaan'],
-        'MEDICAL_PROCUREMENT'    => ['label'=>'MEDICAL_PROCUREMENT','name'=>'Kode Pengadaan Item Medis'],
         'OPNAME_STOCK'           => ['label'=>'OPNAME_STOCK','name'=>'Kode Opname Stock'],
         'VISIT_PATIENT'          => ['label'=>'VISIT_PATIENT','name'=>'Kode Kunjungan Pasien'],
         'VISIT_REGISTRATION'     => ['label'=>'VISIT_REGISTRATION','name'=>'Kode Pendaftaran Kunjungan'],

@@ -1,9 +1,9 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Providers;
+namespace Hanafalah\WellmedPlusStarterpack\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Hanafalah\KlinikStarterpack\Commands;
+use Hanafalah\WellmedPlusStarterpack\Commands;
 
 class CommandServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class CommandServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands(config('klinik-starterpack.commands', $this->__commands));
+        $this->commands(config('wellmed-plus-starterpack.commands', $this->__commands));
     }
 
     public function provides()

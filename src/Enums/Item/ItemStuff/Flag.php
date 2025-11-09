@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Enums\Item\ItemStuff;
+namespace Hanafalah\WellmedPlusStarterpack\Enums\Item\ItemStuff;
 
 enum Flag : string{
     case UNIT_SALES                    = 'UNIT_SALES';

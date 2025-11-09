@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Enums\ModuleService\MedicServiceManagement;
+namespace Hanafalah\WellmedPlusStarterpack\Enums\ModuleService\MedicServiceManagement;
 
 enum EnumMedicServiceManagement : int {
     case NOT_ACTIVE  = 0;

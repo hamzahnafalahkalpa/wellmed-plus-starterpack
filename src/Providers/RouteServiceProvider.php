@@ -1,10 +1,10 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Providers;
+namespace Hanafalah\WellmedPlusStarterpack\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Hanafalah\KlinikStarterpack\KlinikStarterpack;
+use Hanafalah\WellmedPlusStarterpack\WellmedPlusStarterpack;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->__lower_package_name = KlinikStarterpack::LOWER_CLASS_NAME;
+        $this->__lower_package_name = WellmedPlusStarterpack::LOWER_CLASS_NAME;
         parent::boot();
     }
 

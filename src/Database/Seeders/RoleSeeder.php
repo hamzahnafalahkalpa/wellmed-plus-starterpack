@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Database\Seeders;
+namespace Hanafalah\WellmedPlusStarterpack\Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Database\Seeders;
+namespace Hanafalah\WellmedPlusStarterpack\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -11,7 +11,7 @@ class ApiAccessSeeder extends Seeder{
      */
     public function run(): void
     {
-        $workspace  = app(config('database.models.Workspace'))->uuid('9e7ff0f6-7679-46c8-ac3e-71da818160dd')->firstOrFail();        
+        $workspace  = app(config('database.models.Workspace'))->uuid('9e7ff0f6-7679-46c8-ac3e-71da818160ff')->firstOrFail();        
         $api_access = app(config('database.models.ApiAccess'))
                     ->where('reference_type',$workspace->getMorphClass())
                     ->where('reference_id',$workspace->getKey())
@@ -22,7 +22,7 @@ class ApiAccessSeeder extends Seeder{
                 '--algorithm'      => 'HS256',
                 '--reference-id'   => $workspace->getKey(),
                 '--reference-type' => $workspace->getMorphClass(),
-                '--secret'         => 'YXYlGIbJ65VGjQnETWXoOiCvqpXg7PJu'
+                '--secret'         => 'YXYlGIbJ65VGjQnETWXoOiCvqpXg7PJi'
             ]);
     
             if ($exitCode !== 0) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Controllers\API;
+namespace Hanafalah\WellmedPlusStarterpack\Controllers\API;
 
 use App\Http\Controllers\ApiController as ControllersApiController;
 

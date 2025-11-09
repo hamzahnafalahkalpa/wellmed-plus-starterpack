@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Enums\TariffComponent;
+namespace Hanafalah\WellmedPlusStarterpack\Enums\TariffComponent;
 
 enum Flag : string{
     case FEE                 = 'FEE';

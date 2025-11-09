@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\KlinikStarterpack\Concerns;
+namespace Hanafalah\WellmedPlusStarterpack\Concerns;
 
 trait HasComposer{
     public function updateComposer(string $composer_path, string $path, string $field): self{
