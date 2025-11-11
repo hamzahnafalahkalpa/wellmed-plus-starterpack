@@ -38,7 +38,7 @@ class WorkspaceSeeder extends Seeder{
             config([
                 'tenancy.database.prefix' => 'plus_',
                 'tenancy.database.suffix' => '',
-                'tenancy.database.central_connection' => 'central_app'
+                // 'tenancy.database.central_connection' => 'central_app'
             ]);
 
             $tenant_schema  = app(config('app.contracts.Tenant'));
@@ -62,7 +62,7 @@ class WorkspaceSeeder extends Seeder{
             config([
                 'tenancy.database.prefix' => $database_tenant_name['prefix'],
                 'tenancy.database.suffix' => $database_tenant_name['suffix'],
-                'tenancy.database.central_connection' => 'central_tenant'
+                // 'tenancy.database.central_connection' => 'central_tenant'
             ]);
 
             $group_tenant = $tenant_schema->prepareStoreTenant($this->requestDTO(TenantData::class,[
@@ -82,34 +82,37 @@ class WorkspaceSeeder extends Seeder{
             config([
                 'tenancy.database.prefix' => $db_tenant_name['prefix'],
                 'tenancy.database.suffix' => $db_tenant_name['suffix'],
-                'tenancy.database.central_connection' => $default
+                // 'tenancy.database.central_connection' => $default
             ]);
 
-            $workspace = app(config('app.contracts.Workspace'))->prepareStoreWorkspace(WorkspaceData::from([
-                'uuid'    => '9e7ff0f6-7679-46c8-ac3e-71da818160ff',
-                'name'    => 'Wellmed Plus',
-                'status'  => Status::ACTIVE->value,
-                'product_type'   => 'WELLMED_PLUS',
-                'props'   => WorkspacePropsData::from([
-                    'setting' => WorkspaceSettingData::from([
-                        'address' => AddressData::from([
+            $workspace = app(config('app.contracts.Workspace'))->prepareStoreWorkspace($this->requestDTO(
+                config('app.contracts.WorkspaceData'),[
+                    'uuid'    => '9e7ff0f6-7679-46c8-ac3e-71da818160ff',
+                    'name'    => 'Wellmed Plus',
+                    'status'  => Status::ACTIVE->value,
+                    'product_type'   => 'WELLMED_PLUS',
+                    'setting' => [
+                        'address' => [
                             'name'           => 'sangkuriang',
                             'province_id'    => null,
                             'district_id'    => null,
                             'subdistrict_id' => null,
                             'village_id'     => null
-                        ]),
-                        'email'   => 'hamzahnuralfalah@gmail.com',
-                        'phone'   => '0819-0652-1808',
+                        ],
+                        'email'   => 'hamzahnuralfalah_plus@gmail.com',
+                        'phone'   => '081906521808',
                         'owner_id' => null,
                         'owner' => [
                             'id' => null,
                             'name' => null
                         ]
-                    ]),
-                    'integration' => IntegrationData::from([
+                    ],
+                    'integration' => [
                         "satu_sehat" => [
                             "progress" => 0,
+                            "general" => [
+                                "ihs_number" => null
+                            ],
                             "syncs" => [
                                 [
                                     'flag' => 'encounter',
@@ -142,9 +145,10 @@ class WorkspaceSeeder extends Seeder{
                                 ]
                             ]
                         ]
-                    ])
-                ])
-            ]));
+                    ],
+                    
+                ]
+            ));
 
             $tenant = $tenant_schema->prepareStoreTenant($this->requestDTO(TenantData::class,[
                 'parent_id'      => $group_tenant->getKey(),
