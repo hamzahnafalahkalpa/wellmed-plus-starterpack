@@ -18,11 +18,11 @@ class ApiAccessSeeder extends Seeder{
                     ->first();
         if (!isset($api_access)){
             $exitCode = Artisan::call('helper:generate', [
-                '--app-code'       => 2,
+                '--app-code'       => 1,
                 '--algorithm'      => 'HS256',
                 '--reference-id'   => $workspace->getKey(),
                 '--reference-type' => $workspace->getMorphClass(),
-                '--secret'         => 'YXYlGIbJ65VGjQnETWXoOiCvqpXg7PJi'
+                '--secret'         => 'YXYlGIbJ65VGjQnETWXoOiCvqpXg7PJu'
             ]);
     
             if ($exitCode !== 0) {

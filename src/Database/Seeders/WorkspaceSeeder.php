@@ -54,7 +54,7 @@ class WorkspaceSeeder extends Seeder{
                 'packages'       => [],
                 'has_group'      => true,
                 'has_tenant'     => true,
-                'product_type'   => 'WELLMED_PLUS',
+                'product_type'   => 'PLUS',
                 'config'         => $generator_config['patterns']['project']
             ]));
 
@@ -75,7 +75,7 @@ class WorkspaceSeeder extends Seeder{
                 'app'            => ['provider' => $project_tenant->provider],
                 'path'           => $generator_config['patterns']['group']['published_at'],
                 'has_tenant'     => true,
-                'product_type'   => 'WELLMED_PLUS',
+                'product_type'   => 'PLUS',
                 'packages'       => [],
                 'config'         => $generator_config['patterns']['group']
             ]));
@@ -90,7 +90,7 @@ class WorkspaceSeeder extends Seeder{
                     'uuid'    => '9e7ff0f6-7679-46c8-ac3e-71da818160ff',
                     'name'    => 'Wellmed Plus',
                     'status'  => Status::ACTIVE->value,
-                    'product_type'   => 'WELLMED_PLUS',
+                    'product_type'   => 'PLUS',
                     'setting' => [
                         'address' => [
                             'name'           => 'sangkuriang',
@@ -157,7 +157,7 @@ class WorkspaceSeeder extends Seeder{
                 'reference_id'   => $workspace->getKey(),
                 'reference_type' => $workspace->getMorphClass(),
                 'domain'         => [
-                    'domain' => 'localhost:9002'
+                    'domain' => 'localhost:9000'
                 ],
                 'provider' => $tenant_namespace.'\\TenantWellmedPlus\\Providers\\TenantWellmedPlusServiceProvider',
                 'path'     => $generator_config['patterns']['tenant']['published_at'],
