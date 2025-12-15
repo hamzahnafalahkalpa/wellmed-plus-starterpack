@@ -35,7 +35,6 @@
         "hanafalah/module-procurement": "dev-main as 1.0",
         "hanafalah/module-medical-procurement": "dev-main as 1.0",
         "hanafalah/module-disease": "dev-main as 1.0",
-        "hanafalah/module-informed-consent": "dev-main as 1.0",
         "hanafalah/module-icd": "dev-main as 1.0",
         "hanafalah/module-anatomy": "dev-main as 1.0",
         "hanafalah/module-physical-examination": "dev-main as 1.0",
